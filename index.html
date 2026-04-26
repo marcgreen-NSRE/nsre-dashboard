@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NSRE Dashboard — Marc Green</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0f1117; color: #e0e0e0; padding: 20px; }
+  
+  h1 { font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+  .subtitle { font-size: 13px; color: #666; margin-bottom: 24px; }
+  
+  /* GOALS BAR */
+  .goals-section { margin-bottom: 28px; }
+  .goals-section h2 { font-size: 13px; text-transform: uppercase; letter-spacing: 1px; color: #555; margin-bottom: 12px; }
+  .goals-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; }
+  .goal-card { background: #1a1d27; border-radius: 10px; padding: 14px 16px; border-left: 3px solid #2d6a4f; }
+  .goal-label { font-size: 11px; color: #666; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+  .goal-value { font-size: 22px; font-weight: 700; color: #fff; }
+  .goal-target { font-size: 11px; color: #555; margin-top: 3px; }
+  .progress-bar { background: #2a2d3a; border-radius: 4px; height: 4px; margin-top: 8px; overflow: hidden; }
+  .progress-fill { height: 100%; border-radius: 4px; background: #2d6a4f; }
+  .progress-fill.yellow { background: #e9c46a; }
+  .progress-fill.green { background: #52b788; }
+
+  /* SECTION HEADERS */
+  .section-header { font-size: 13px; text-transform: uppercase; letter-spacing: 1px; color: #555; margin-bottom: 12px; margin-top: 28px; }
+
+  /* TRANSACTION CARDS */
+  .tx-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; }
+  .tx-card { background: #1a1d27; border-radius: 12px; padding: 18px; border-top: 3px solid #444; }
+  .tx-card.green { border-top-color: #52b788; }
+  .tx-card.yellow { border-top-color: #e9c46a; }
+  .tx-card.red { border-top-color: #e76f51; }
+
+  .tx-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+  .tx-name { font-size: 15px; font-weight: 700; color: #fff; }
+  .tx-type { font-size: 11px; color: #666; margin-top: 2px; }
+  .tx-badge { font-size: 10px; font-weight: 600; padding: 3px 8px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .badge-green { background: #1b4332; color: #52b788; }
+  .badge-yellow { background: #3d2c00; color: #e9c46a; }
+  .badge-red { background: #3d1a0f; color: #e76f51; }
+
+  .tx-addresses { margin-bottom: 12px; }
+  .addr-row { display: flex; gap: 8px; margin-bottom: 4px; align-items: flex-start; }
+  .addr-label { font-size: 10px; color: #555; text-transform: uppercase; min-width: 36px; padding-top: 1px; }
+  .addr-value { font-size: 12px; color: #bbb; }
+
+  .closing-date { font-size: 12px; color: #e9c46a; font-weight: 600; margin-bottom: 14px; }
+
+  .milestones { margin-bottom: 14px; }
+  .milestone { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; font-size: 12px; }
+  .milestone .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-done { background: #52b788; }
+  .dot-pending { background: #e9c46a; }
+  .dot-blocked { background: #e76f51; }
+  .dot-na { background: #333; }
+  .milestone-label { color: #999; }
+  .milestone-label.done { color: #52b788; text-decoration: line-through; }
+  .milestone-label.blocked { color: #e76f51; font-weight: 600; }
+
+  .open-item { background: #12151f; border-left: 2px solid #e76f51; padding: 8px 10px; border-radius: 4px; font-size: 12px; color: #e76f51; margin-top: 10px; }
+  .open-item-label { font-size: 10px; text-transform: uppercase; color: #555; margin-bottom: 3px; }
+
+  .contacts { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+  .contact-chip { background: #22263a; border-radius: 6px; padding: 4px 8px; font-size: 11px; color: #888; }
+  .contact-chip span { color: #ccc; }
+
+  /* PIPELINE METER */
+  .pipeline-section { margin-top: 28px; }
+  .pipeline-card { background: #1a1d27; border-radius: 12px; padding: 18px; }
+  .pipeline-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #22263a; }
+  .pipeline-row:last-child { border-bottom: none; }
+  .pipeline-name { font-size: 13px; color: #ccc; }
+  .pipeline-detail { font-size: 11px; color: #555; margin-top: 2px; }
+  .pipeline-status { font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 20px; }
+  .status-hot { background: #3d1a0f; color: #e76f51; }
+  .status-active { background: #1b3a4b; color: #48cae4; }
+  .status-nurture { background: #2a2d3a; color: #666; }
+
+  .updated { font-size: 11px; color: #444; text-align: right; margin-top: 20px; }
+</style>
+</head>
+<body>
+
+<h1>🏠 NSRE Dashboard</h1>
+<p class="subtitle">Marc Green · Coldwell Banker Realty · Last updated: April 25, 2026</p>
+
+<!-- GOALS -->
+<div class="goals-section">
+  <div class="goals-grid">
+    <div class="goal-card">
+      <div class="goal-label">GCI — YTD</div>
+      <div class="goal-value">$0</div>
+      <div class="goal-target">Target: $250K</div>
+      <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+    </div>
+    <div class="goal-card">
+      <div class="goal-label">Volume — YTD</div>
+      <div class="goal-value">$0</div>
+      <div class="goal-target">Target: $7M by Jul 1 · $24M EOY</div>
+      <div class="progress-bar"><div class="progress-fill yellow" style="width:0%"></div></div>
+    </div>
+    <div class="goal-card">
+      <div class="goal-label">Transactions</div>
+      <div class="goal-value">3</div>
+      <div class="goal-target">Target: 25 · In pipeline</div>
+      <div class="progress-bar"><div class="progress-fill green" style="width:12%"></div></div>
+    </div>
+    <div class="goal-card">
+      <div class="goal-label">Active Clients</div>
+      <div class="goal-value">7</div>
+      <div class="goal-target">Deals in motion: 3</div>
+      <div class="progress-bar"><div class="progress-fill green" style="width:100%"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- TRANSACTIONS -->
+<div class="section-header">Active Transactions</div>
+<div class="tx-grid">
+
+  <!-- KEVIN & MICHAEL -->
+  <div class="tx-card yellow">
+    <div class="tx-header">
+      <div>
+        <div class="tx-name">Kevin Tyrell & Michael Fisher</div>
+        <div class="tx-type">Buy + Sell</div>
+      </div>
+      <div class="tx-badge badge-yellow">In Progress</div>
+    </div>
+    <div class="tx-addresses">
+      <div class="addr-row"><span class="addr-label">SELL</span><span class="addr-value">515 Pleasant St #3-1, Melrose</span></div>
+      <div class="addr-row"><span class="addr-label">BUY</span><span class="addr-value">200 Market St #410, Lowell</span></div>
+    </div>
+    <div class="closing-date">⏱ Closing: May 28, 2026 at 9:30am</div>
+    <div class="milestones">
+      <div class="milestone"><div class="dot dot-done"></div><span class="milestone-label done">P&S Signed (April 16)</span></div>
+      <div class="milestone"><div class="dot dot-done"></div><span class="milestone-label done">Amendment executed (May 28)</span></div>
+      <div class="milestone"><div class="dot dot-done"></div><span class="milestone-label done">Inspection complete — JBS</span></div>
+      <div class="milestone"><div class="dot dot-blocked"></div><span class="milestone-label blocked">Mortgage — lender decision Monday</span></div>
+      <div class="milestone"><div class="dot dot-pending"></div><span class="milestone-label">6D Certificate — coordinating with Libby (Monday)</span></div>
+      <div class="milestone"><div class="dot dot-pending"></div><span class="milestone-label">Fire/Smoke Cert — Melrose Fire Dept</span></div>
+      <div class="milestone"><div class="dot dot-pending"></div><span class="milestone-label">Insurance binder — not started</span></div>
+      <div class="milestone"><div class="dot dot-pending"></div><span class="milestone-label">Utilities — schedule ~May 14</span></div>
+      <div class="milestone"><div class="dot dot-pending"></div><span class="milestone-label">Final walkthrough — TBD eve of closing</span></div>
+    </div>
+    <div class="open-item"><div class="open-item-label">Top Blocker</div>Mortgage warrantability under review — litigation at Canal Place. David Johnson + Brian (H1H2) + Ed Gelman (Cardinal) + John (Investor) all in play. Decision Monday.</div>
+    <div class="contacts">
+      <div class="contact-chip">Attorney: <span>Julie Rubenstein</span></div>
+      <div class="contact-chip">Lender: <span>David Johnson</span></div>
+      <div class="contact-chip">Inspector: <span>JBS Inspections</span></div>
+    </div>
+  </div>
+
+  <!-- DONNA -->
+  <div class="tx-card red">
+    <div class="tx-header">
+      <div>
+        <div class="tx-name">Donna Frongillo</div>
+        <div class="tx-type">Buy + Sell · Joey & Jedi involved</div>
+      </div>
+      <div class="tx-badge badge-red">Appraisal Issue</div>
+    </div>
+    <div class="tx-addresses">
+      <div class="addr-row"><span class="addr-label">SELL</span><span class="addr-value">89 Blossom St, Chelsea</span></div>
+      <div class="addr-row"><span class="addr-label">BUY</span><span class="addr-value">207 Sherbert Rd</span></div>
+    </div>
+    <div class="closing-date">⏱ Closing: TBD · Final walkthrough May 26 (4–8pm)</div>
+    <div class="milestones">
+      <div class="milestone"><div class="dot dot-blocked"></div><span class="milestone-label blocked">Appraisal issue — circling with attorneys + lenders</span></div>
+      <div class="milestone"><div class="dot dot-pending"></div><span class="milestone-label">6D Certificate — TBD</span></div>
+      <div class="milestone"><div class="dot dot-pending"></div><span class="milestone-label">Fire Cert — Chelsea Fire Dept (Mike Page contact)</span></div>
+      <div class="milestone"><div class="dot dot-pending"></div><span class="milestone-label">Mortgage — in progress with Nick Sears</span></div>
+      <div class="milestone"><div class="dot dot-pending"></div><span class="milestone-label">Insurance binder — not started</span></div>
+      <div class="milestone"><div class="dot dot-pending"></div><span class="milestone-label">Move logistics — Donna is point of contact (Marblehead Movers TBD)</span></div>
+      <div class="milestone"><div class="dot dot-pending"></div><span class="milestone-label">Utilities — schedule ~2 weeks out</span></div>
+      <div class="milestone"><div class="dot dot-pending"></div><span class="milestone-label">Final walkthrough — May 26 4–8pm</span></div>
+    </div>
+    <div class="open-item"><div class="open-item-label">Top Blocker</div>Appraisal on 89 Blossom — working through with Cornerstone Group (Zingales). Resolution needed before moving forward.</div>
+    <div class="contacts">
+      <div class="contact-chip">Attorney: <span>Cornerstone/Zingales</span></div>
+      <div class="contact-chip">Lender: <span>Nick Sears</span></div>
+      <div class="contact-chip">Move: <span>Marblehead Movers (TBD)</span></div>
+    </div>
+  </div>
+
+  <!-- LOUANNE -->
+  <div class="tx-card green">
+    <div class="tx-header">
+      <div>
+        <div class="tx-name">Louanne Romaneck</div>
+        <div class="tx-type">Buy — 55+ Community</div>
+      </div>
+      <div class="tx-badge badge-green">Awaiting P&S</div>
+    </div>
+    <div class="tx-addresses">
+      <div class="addr-row"><span class="addr-label">BUY</span><span class="addr-value">Pleasant View Farm, Epping NH</span></div>
+    </div>
+    <div class="closing-date">⏱ Closing: TBD</div>
+    <div class="milestones">
+      <div class="milestone"><div class="dot dot-done"></div><span class="milestone-label done">Attorney connected</span></div>
+      <div class="milestone"><div class="dot dot-done"></div><span class="milestone-label done">Title company connected — Touchstone Closing (Noelle Rossini)</span></div>
+      <div class="milestone"><div class="dot dot-pending"></div><span class="milestone-label">Purchase &amp; Sale Agreement — awaiting</span></div>
+      <div class="milestone"><div class="dot dot-pending"></div><span class="milestone-label">Mortgage — TBD</span></div>
+      <div class="milestone"><div class="dot dot-pending"></div><span class="milestone-label">Insurance binder — not started</span></div>
+      <div class="milestone"><div class="dot dot-na"></div><span class="milestone-label">Condo docs — in process (Pleasant View Farm)</span></div>
+    </div>
+    <div class="open-item"><div class="open-item-label">Next Step</div>Awaiting Purchase & Sale Agreement. Everything else on hold until P&S is signed.</div>
+    <div class="contacts">
+      <div class="contact-chip">Title: <span>Noelle Rossini / Touchstone</span></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ACTIVE PIPELINE -->
+<div class="pipeline-section">
+  <div class="section-header">Active Client Pipeline</div>
+  <div class="pipeline-card">
+    <div class="pipeline-row">
+      <div><div class="pipeline-name">Kevin & Michael</div><div class="pipeline-detail">Under agreement — 515 Pleasant (sell) + 200 Market (buy)</div></div>
+      <div class="pipeline-status status-active">In Escrow</div>
+    </div>
+    <div class="pipeline-row">
+      <div><div class="pipeline-name">Donna Frongillo</div><div class="pipeline-detail">89 Blossom Chelsea (sell) + 207 Sherbert (buy) — appraisal issue</div></div>
+      <div class="pipeline-status status-hot">Urgent</div>
+    </div>
+    <div class="pipeline-row">
+      <div><div class="pipeline-name">Louanne Romaneck</div><div class="pipeline-detail">Pleasant View Farm Epping NH — awaiting P&S</div></div>
+      <div class="pipeline-status status-active">Active</div>
+    </div>
+    <div class="pipeline-row">
+      <div><div class="pipeline-name">Jim Mailloux</div><div class="pipeline-detail">Houston + Stangus — targeting mid-late May listing</div></div>
+      <div class="pipeline-status status-active">Active</div>
+    </div>
+    <div class="pipeline-row">
+      <div><div class="pipeline-name">Joe Depalo</div><div class="pipeline-detail">80 Foster St Lynn — follow up next week</div></div>
+      <div class="pipeline-status status-active">Active</div>
+    </div>
+    <div class="pipeline-row">
+      <div><div class="pipeline-name">Josh Armata</div><div class="pipeline-detail">176 Gore Rd Beverly — CMA sent, viewed property</div></div>
+      <div class="pipeline-status status-active">Active</div>
+    </div>
+    <div class="pipeline-row">
+      <div><div class="pipeline-name">Marcus Mitrano</div><div class="pipeline-detail">141 Washington Salem — rental, lease signed, Braeden deposit May 23</div></div>
+      <div class="pipeline-status status-active">Active</div>
+    </div>
+  </div>
+</div>
+
+<!-- MONDAY TASKS -->
+<div class="section-header" style="margin-top:28px;">Monday Priority List</div>
+<div class="pipeline-card" style="background:#1a1d27; border-radius:12px; padding:18px;">
+  <div class="pipeline-row">
+    <div><div class="pipeline-name">🔴 Kevin & Michael — Mortgage</div><div class="pipeline-detail">Best lender for warrantability + litigation situation. Brian (H1H2), Ed Gelman, John (Investor), David Johnson.</div></div>
+  </div>
+  <div class="pipeline-row">
+    <div><div class="pipeline-name">🔴 Kevin & Michael — 6D Certificate</div><div class="pipeline-detail">Connect with Libby. May fees paid + prorate May 29-30.</div></div>
+  </div>
+  <div class="pipeline-row">
+    <div><div class="pipeline-name">🟡 Donna — Appraisal resolution</div><div class="pipeline-detail">Follow up with attorneys and lenders on 89 Blossom.</div></div>
+  </div>
+  <div class="pipeline-row">
+    <div><div class="pipeline-name">🟡 ATTOM Data</div><div class="pipeline-detail">Call to upgrade from free trial to paid API key.</div></div>
+  </div>
+  <div class="pipeline-row">
+    <div><div class="pipeline-name">🟡 MLS Bridge API</div><div class="pipeline-detail">Confirm with Chris (broker) on data access extension.</div></div>
+  </div>
+  <div class="pipeline-row" style="border-bottom:none;">
+    <div><div class="pipeline-name">🟢 Joe Depalo follow up</div><div class="pipeline-detail">Check in on 80 Foster St Lynn — on market status.</div></div>
+  </div>
+</div>
+
+<p class="updated">Dashboard v1.0 · Built by NSRE Sales Admin · Data current as of April 25, 2026 · Lead data module coming soon (pending ATTOM + MLS Bridge)</p>
+
+</body>
+</html>
