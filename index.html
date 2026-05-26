@@ -7,11 +7,8 @@
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0f1117; color: #e0e0e0; padding: 20px; }
-  
   h1 { font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 4px; }
   .subtitle { font-size: 13px; color: #666; margin-bottom: 24px; }
-  
-  /* GOALS BAR */
   .goals-section { margin-bottom: 28px; }
   .goals-section h2 { font-size: 13px; text-transform: uppercase; letter-spacing: 1px; color: #555; margin-bottom: 12px; }
   .goals-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; }
@@ -23,17 +20,13 @@
   .progress-fill { height: 100%; border-radius: 4px; background: #2d6a4f; }
   .progress-fill.yellow { background: #e9c46a; }
   .progress-fill.green { background: #52b788; }
-
-  /* SECTION HEADERS */
   .section-header { font-size: 13px; text-transform: uppercase; letter-spacing: 1px; color: #555; margin-bottom: 12px; margin-top: 28px; }
-
-  /* TRANSACTION CARDS */
   .tx-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; }
   .tx-card { background: #1a1d27; border-radius: 12px; padding: 18px; border-top: 3px solid #444; }
   .tx-card.green { border-top-color: #52b788; }
   .tx-card.yellow { border-top-color: #e9c46a; }
   .tx-card.red { border-top-color: #e76f51; }
-
+  .tx-card.blue { border-top-color: #48cae4; }
   .tx-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
   .tx-name { font-size: 15px; font-weight: 700; color: #fff; }
   .tx-type { font-size: 11px; color: #666; margin-top: 2px; }
@@ -41,14 +34,12 @@
   .badge-green { background: #1b4332; color: #52b788; }
   .badge-yellow { background: #3d2c00; color: #e9c46a; }
   .badge-red { background: #3d1a0f; color: #e76f51; }
-
+  .badge-blue { background: #1b3a4b; color: #48cae4; }
   .tx-addresses { margin-bottom: 12px; }
   .addr-row { display: flex; gap: 8px; margin-bottom: 4px; align-items: flex-start; }
   .addr-label { font-size: 10px; color: #555; text-transform: uppercase; min-width: 36px; padding-top: 1px; }
   .addr-value { font-size: 12px; color: #bbb; }
-
   .closing-date { font-size: 12px; color: #e9c46a; font-weight: 600; margin-bottom: 14px; }
-
   .milestones { margin-bottom: 14px; }
   .milestone { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; font-size: 12px; }
   .milestone .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
@@ -59,15 +50,13 @@
   .milestone-label { color: #999; }
   .milestone-label.done { color: #52b788; text-decoration: line-through; }
   .milestone-label.blocked { color: #e76f51; font-weight: 600; }
-
   .open-item { background: #12151f; border-left: 2px solid #e76f51; padding: 8px 10px; border-radius: 4px; font-size: 12px; color: #e76f51; margin-top: 10px; }
+  .open-item.yellow { border-color: #e9c46a; color: #e9c46a; }
+  .open-item.green { border-color: #52b788; color: #52b788; }
   .open-item-label { font-size: 10px; text-transform: uppercase; color: #555; margin-bottom: 3px; }
-
   .contacts { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
   .contact-chip { background: #22263a; border-radius: 6px; padding: 4px 8px; font-size: 11px; color: #888; }
   .contact-chip span { color: #ccc; }
-
-  /* PIPELINE METER */
   .pipeline-section { margin-top: 28px; }
   .pipeline-card { background: #1a1d27; border-radius: 12px; padding: 18px; }
   .pipeline-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #22263a; }
@@ -77,15 +66,15 @@
   .pipeline-status { font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 20px; }
   .status-hot { background: #3d1a0f; color: #e76f51; }
   .status-active { background: #1b3a4b; color: #48cae4; }
-  .status-nurture { background: #2a2d3a; color: #666; }
-
+  .status-pre { background: #2a2d3a; color: #888; }
+  .status-done { background: #1b4332; color: #52b788; }
   .updated { font-size: 11px; color: #444; text-align: right; margin-top: 20px; }
 </style>
 </head>
 <body>
 
 <h1>🏠 NSRE Dashboard</h1>
-<p class="subtitle">Marc Green · Coldwell Banker Realty · Last updated: April 25, 2026</p>
+<p class="subtitle">Marc Green · Coldwell Banker Realty · Last updated: May 26, 2026</p>
 
 <!-- GOALS -->
 <div class="goals-section">
@@ -97,21 +86,21 @@
       <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
     </div>
     <div class="goal-card">
-      <div class="goal-label">Volume — YTD</div>
-      <div class="goal-value">$0</div>
-      <div class="goal-target">Target: $7M by Jul 1 · $24M EOY</div>
-      <div class="progress-bar"><div class="progress-fill yellow" style="width:0%"></div></div>
+      <div class="goal-label">Active Transactions</div>
+      <div class="goal-value">5</div>
+      <div class="goal-target">2 closing this week · 3 by end of June</div>
+      <div class="progress-bar"><div class="progress-fill green" style="width:100%"></div></div>
     </div>
     <div class="goal-card">
-      <div class="goal-label">Transactions</div>
-      <div class="goal-value">3</div>
-      <div class="goal-target">Target: 25 · In pipeline</div>
-      <div class="progress-bar"><div class="progress-fill green" style="width:12%"></div></div>
+      <div class="goal-label">Pre-List Signed</div>
+      <div class="goal-value">4</div>
+      <div class="goal-target">Mailloux · Zwicker · DePalo · Knowlton</div>
+      <div class="progress-bar"><div class="progress-fill yellow" style="width:80%"></div></div>
     </div>
     <div class="goal-card">
-      <div class="goal-label">Active Clients</div>
+      <div class="goal-label">Hot Listing Prospects</div>
       <div class="goal-value">7</div>
-      <div class="goal-target">Deals in motion: 3</div>
+      <div class="goal-target">Bennett · Duchak · Campagna · Muir + more</div>
       <div class="progress-bar"><div class="progress-fill green" style="width:100%"></div></div>
     </div>
   </div>
@@ -125,92 +114,133 @@
   <div class="tx-card yellow">
     <div class="tx-header">
       <div>
-        <div class="tx-name">Kevin Tyrell & Michael Fisher</div>
-        <div class="tx-type">Buy + Sell</div>
+        <div class="tx-name">Kevin Tyrrell & Michael Fisher</div>
+        <div class="tx-type">Sell 515 Pleasant · Buy 200 Market #410</div>
       </div>
-      <div class="tx-badge badge-yellow">In Progress</div>
+      <div class="tx-badge badge-yellow">Lender Pivot</div>
     </div>
     <div class="tx-addresses">
-      <div class="addr-row"><span class="addr-label">SELL</span><span class="addr-value">515 Pleasant St #3-1, Melrose</span></div>
-      <div class="addr-row"><span class="addr-label">BUY</span><span class="addr-value">200 Market St #410, Lowell</span></div>
+      <div class="addr-row"><span class="addr-label">SELL</span><span class="addr-value">515 Pleasant St #3-1, Melrose — Close target Jun 18</span></div>
+      <div class="addr-row"><span class="addr-label">BUY</span><span class="addr-value">200 Market St #410, Lowell — Commitment Jun 12 / Close Jun 19</span></div>
     </div>
-    <div class="closing-date">⏱ Closing: May 28, 2026 at 9:30am</div>
+    <div class="closing-date">⏱ 515 Pleasant: Jun 18 target (Kristen ext pending) · 200 Market: Jun 19</div>
     <div class="milestones">
-      <div class="milestone"><div class="dot dot-done"></div><span class="milestone-label done">P&S Signed (April 16)</span></div>
-      <div class="milestone"><div class="dot dot-done"></div><span class="milestone-label done">Amendment executed (May 28)</span></div>
-      <div class="milestone"><div class="dot dot-done"></div><span class="milestone-label done">Inspection complete — JBS</span></div>
-      <div class="milestone"><div class="dot dot-blocked"></div><span class="milestone-label blocked">Mortgage — lender decision Monday</span></div>
-      <div class="milestone"><div class="dot dot-pending"></div><span class="milestone-label">6D Certificate — coordinating with Libby (Monday)</span></div>
-      <div class="milestone"><div class="dot dot-pending"></div><span class="milestone-label">Fire/Smoke Cert — Melrose Fire Dept</span></div>
-      <div class="milestone"><div class="dot dot-pending"></div><span class="milestone-label">Insurance binder — not started</span></div>
-      <div class="milestone"><div class="dot dot-pending"></div><span class="milestone-label">Utilities — schedule ~May 14</span></div>
-      <div class="milestone"><div class="dot dot-pending"></div><span class="milestone-label">Final walkthrough — TBD eve of closing</span></div>
+      <div class="milestone"><div class="dot dot-done"></div><span class="milestone-label done">P&S signed · inspection complete</span></div>
+      <div class="milestone"><div class="dot dot-done"></div><span class="milestone-label done">515 Pleasant: Wire confirmed · NG + 6D + fire cert cleared</span></div>
+      <div class="milestone"><div class="dot dot-done"></div><span class="milestone-label done">200 Market: Appraisal cleared · title clean · MLC resolved</span></div>
+      <div class="milestone"><div class="dot dot-done"></div><span class="milestone-label done">Elevator work: confirmed routine maintenance (not safety hazard)</span></div>
+      <div class="milestone"><div class="dot dot-done"></div><span class="milestone-label done">Special assessment: sellers paying at closing</span></div>
+      <div class="milestone"><div class="dot dot-pending"></div><span class="milestone-label">515 Pleasant: Kristen extension confirm pending</span></div>
+      <div class="milestone"><div class="dot dot-blocked"></div><span class="milestone-label blocked">200 Market: Call Salem Five + Blue Door (portfolio lenders)</span></div>
+      <div class="milestone"><div class="dot dot-pending"></div><span class="milestone-label">200 Market: Get lender go-ahead → connect Kevin & Michael</span></div>
     </div>
-    <div class="open-item"><div class="open-item-label">Top Blocker</div>Mortgage warrantability under review — litigation at Canal Place. David Johnson + Brian (H1H2) + Ed Gelman (Cardinal) + John (Investor) all in play. Decision Monday.</div>
+    <div class="open-item"><div class="open-item-label">Top Blocker — 200 Market</div>FCM hit wall on condo warrantability. Pivoting to portfolio/non-warrantable lenders: Salem Five, Blue Door Mortgage, Washington Trust (Belisle), North Point (Santos). Full condo package assembled — elevator = maintenance, sellers paying assessment.</div>
     <div class="contacts">
-      <div class="contact-chip">Attorney: <span>Julie Rubenstein</span></div>
-      <div class="contact-chip">Lender: <span>David Johnson</span></div>
-      <div class="contact-chip">Inspector: <span>JBS Inspections</span></div>
+      <div class="contact-chip">Seller Atty: <span>Jarrett Scarpaci</span></div>
+      <div class="contact-chip">Buyer Atty: <span>Julie Rubenstein</span></div>
+      <div class="contact-chip">Assoc: <span>JA Wood / Eileen Collins</span></div>
     </div>
   </div>
 
-  <!-- DONNA -->
+  <!-- DONNA FRONGILLO -->
   <div class="tx-card red">
     <div class="tx-header">
       <div>
         <div class="tx-name">Donna Frongillo</div>
-        <div class="tx-type">Buy + Sell · Joey & Jedi involved</div>
+        <div class="tx-type">Sell 89 Blossom Chelsea · Buy 207 Sherbert Ashburnham</div>
       </div>
-      <div class="tx-badge badge-red">Appraisal Issue</div>
+      <div class="tx-badge badge-red">Extensions Pending</div>
     </div>
     <div class="tx-addresses">
-      <div class="addr-row"><span class="addr-label">SELL</span><span class="addr-value">89 Blossom St, Chelsea</span></div>
-      <div class="addr-row"><span class="addr-label">BUY</span><span class="addr-value">207 Sherbert Rd</span></div>
+      <div class="addr-row"><span class="addr-label">SELL</span><span class="addr-value">89 Blossom St, Chelsea — Close ~Jun 17</span></div>
+      <div class="addr-row"><span class="addr-label">BUY</span><span class="addr-value">207 Sherbert Rd, Ashburnham — Close ~Jun 17</span></div>
     </div>
-    <div class="closing-date">⏱ Closing: TBD · Final walkthrough May 26 (4–8pm)</div>
+    <div class="closing-date">⏱ Closing target: Jun 17 · Probate: Jun 9 (fixed)</div>
     <div class="milestones">
-      <div class="milestone"><div class="dot dot-blocked"></div><span class="milestone-label blocked">Appraisal issue — circling with attorneys + lenders</span></div>
-      <div class="milestone"><div class="dot dot-pending"></div><span class="milestone-label">6D Certificate — TBD</span></div>
-      <div class="milestone"><div class="dot dot-pending"></div><span class="milestone-label">Fire Cert — Chelsea Fire Dept (Mike Page contact)</span></div>
-      <div class="milestone"><div class="dot dot-pending"></div><span class="milestone-label">Mortgage — in progress with Nick Sears</span></div>
-      <div class="milestone"><div class="dot dot-pending"></div><span class="milestone-label">Insurance binder — not started</span></div>
-      <div class="milestone"><div class="dot dot-pending"></div><span class="milestone-label">Move logistics — Donna is point of contact (Marblehead Movers TBD)</span></div>
-      <div class="milestone"><div class="dot dot-pending"></div><span class="milestone-label">Utilities — schedule ~2 weeks out</span></div>
-      <div class="milestone"><div class="dot dot-pending"></div><span class="milestone-label">Final walkthrough — May 26 4–8pm</span></div>
+      <div class="milestone"><div class="dot dot-done"></div><span class="milestone-label done">Walkthrough complete May 26 (4–8pm)</span></div>
+      <div class="milestone"><div class="dot dot-done"></div><span class="milestone-label done">U&O draft sent to Tim Sherman (buyer atty) May 26</span></div>
+      <div class="milestone"><div class="dot dot-blocked"></div><span class="milestone-label blocked">89 Blossom: Tim Sherman must confirm U&O + extension</span></div>
+      <div class="milestone"><div class="dot dot-blocked"></div><span class="milestone-label blocked">207 Sherbert: Donna must sign extension (needs U&O first)</span></div>
+      <div class="milestone"><div class="dot dot-pending"></div><span class="milestone-label">207 Sherbert: P&S amendment still unsigned ($265k)</span></div>
+      <div class="milestone"><div class="dot dot-pending"></div><span class="milestone-label">Rate lock cost recovery pending — CrossCountry + Conroy Jackson</span></div>
     </div>
-    <div class="open-item"><div class="open-item-label">Top Blocker</div>Appraisal on 89 Blossom — working through with Cornerstone Group (Zingales). Resolution needed before moving forward.</div>
+    <div class="open-item"><div class="open-item-label">Critical Path</div>Donna cannot sign extension on 207 Sherbert until she sees the U&O for 89 Blossom. U&O sent 5/26. Tim Sherman must respond. Probate Jun 9 is fixed — no flexibility.</div>
     <div class="contacts">
-      <div class="contact-chip">Attorney: <span>Cornerstone/Zingales</span></div>
-      <div class="contact-chip">Lender: <span>Nick Sears</span></div>
-      <div class="contact-chip">Move: <span>Marblehead Movers (TBD)</span></div>
+      <div class="contact-chip">Seller Atty: <span>Julie Rubenstein</span></div>
+      <div class="contact-chip">Buyer Atty: <span>Tim Sherman</span></div>
+      <div class="contact-chip">Buyer Agent: <span>Sadie Perdomo / Team Zingales</span></div>
     </div>
   </div>
 
-  <!-- LOUANNE -->
+  <!-- LOUANNE ROMANECK -->
   <div class="tx-card green">
     <div class="tx-header">
       <div>
         <div class="tx-name">Louanne Romaneck</div>
-        <div class="tx-type">Buy — 55+ Community</div>
+        <div class="tx-type">Buy — Epping NH · Also selling in Limerick</div>
       </div>
-      <div class="tx-badge badge-green">Awaiting P&S</div>
+      <div class="tx-badge badge-green">P&S Signed</div>
     </div>
     <div class="tx-addresses">
-      <div class="addr-row"><span class="addr-label">BUY</span><span class="addr-value">Pleasant View Farm, Epping NH</span></div>
+      <div class="addr-row"><span class="addr-label">BUY</span><span class="addr-value">63A Sunset Ridge Rd, Epping NH — Close ~Jun 30</span></div>
     </div>
-    <div class="closing-date">⏱ Closing: TBD</div>
+    <div class="closing-date">⏱ Closing: ~Jun 30 · Lewis Builders financing proof due May 29</div>
     <div class="milestones">
-      <div class="milestone"><div class="dot dot-done"></div><span class="milestone-label done">Attorney connected</span></div>
-      <div class="milestone"><div class="dot dot-done"></div><span class="milestone-label done">Title company connected — Touchstone Closing (Noelle Rossini)</span></div>
-      <div class="milestone"><div class="dot dot-pending"></div><span class="milestone-label">Purchase &amp; Sale Agreement — awaiting</span></div>
-      <div class="milestone"><div class="dot dot-pending"></div><span class="milestone-label">Mortgage — TBD</span></div>
-      <div class="milestone"><div class="dot dot-pending"></div><span class="milestone-label">Insurance binder — not started</span></div>
-      <div class="milestone"><div class="dot dot-na"></div><span class="milestone-label">Condo docs — in process (Pleasant View Farm)</span></div>
+      <div class="milestone"><div class="dot dot-done"></div><span class="milestone-label done">P&S signed · $515K</span></div>
+      <div class="milestone"><div class="dot dot-done"></div><span class="milestone-label done">Partners Bank commitment issued</span></div>
+      <div class="milestone"><div class="dot dot-done"></div><span class="milestone-label done">Appraisal assigned — Angela Maxfield</span></div>
+      <div class="milestone"><div class="dot dot-pending"></div><span class="milestone-label">Confirm Alison Fitting sent commitment to Lewis Builders (due May 29)</span></div>
+      <div class="milestone"><div class="dot dot-pending"></div><span class="milestone-label">RJ Home Inspection — general building + radon (scheduling)</span></div>
+      <div class="milestone"><div class="dot dot-pending"></div><span class="milestone-label">Louanne's Limerick sale under contract — closing tied</span></div>
     </div>
-    <div class="open-item"><div class="open-item-label">Next Step</div>Awaiting Purchase & Sale Agreement. Everything else on hold until P&S is signed.</div>
+    <div class="open-item open-item.yellow"><div class="open-item-label">Next Step</div>Email Helen + Lewis Builders tomorrow if no contact. Check Ali's secured message for financing commitment. Confirm RJ inspection schedule.</div>
     <div class="contacts">
-      <div class="contact-chip">Title: <span>Noelle Rossini / Touchstone</span></div>
+      <div class="contact-chip">Lender: <span>Alison Fitting / Partners Bank</span></div>
+      <div class="contact-chip">Builder: <span>Lewis Builders</span></div>
     </div>
+  </div>
+
+</div>
+
+<!-- PRE-LIST -->
+<div class="section-header">Pre-List / Signed Sellers</div>
+<div class="tx-grid">
+
+  <div class="tx-card blue">
+    <div class="tx-header">
+      <div><div class="tx-name">Jim Mailloux</div><div class="tx-type">Dual Sell — Lynn</div></div>
+      <div class="tx-badge badge-blue">Signed · Pre-List</div>
+    </div>
+    <div class="tx-addresses">
+      <div class="addr-row"><span class="addr-label">SELL</span><span class="addr-value">6 Houston St, Lynn</span></div>
+      <div class="addr-row"><span class="addr-label">SELL</span><span class="addr-value">12 Stangus Ave, Lynn</span></div>
+    </div>
+    <div class="closing-date">📸 Photos: 12 Stangus — Saturday May 31 PM · List target Jun 1</div>
+    <div class="milestones">
+      <div class="milestone"><div class="dot dot-done"></div><span class="milestone-label done">Signed · repairs in progress</span></div>
+      <div class="milestone"><div class="dot dot-pending"></div><span class="milestone-label">Photos — 12 Stangus Sat 5/31 afternoon</span></div>
+      <div class="milestone"><div class="dot dot-pending"></div><span class="milestone-label">Confirm tenant schedule for photos</span></div>
+    </div>
+    <div class="open-item open-item.green"><div class="open-item-label">Next</div>Schedule photographer for 12 Stangus Saturday 5/31 PM. Jim confirmed on track.</div>
+  </div>
+
+  <div class="tx-card blue">
+    <div class="tx-header">
+      <div><div class="tx-name">Rich Zwicker</div><div class="tx-type">Sell Saugus · Buy NH</div></div>
+      <div class="tx-badge badge-blue">Signed · Pre-List</div>
+    </div>
+    <div class="tx-addresses">
+      <div class="addr-row"><span class="addr-label">SELL</span><span class="addr-value">45 Pearson St, Saugus — List mid-late Jun</span></div>
+      <div class="addr-row"><span class="addr-label">BUY</span><span class="addr-value">NH — Holderness + Franklin properties</span></div>
+    </div>
+    <div class="closing-date">⏱ Saugus: mid-late June (landfill permit tomorrow, cleanup ongoing)</div>
+    <div class="milestones">
+      <div class="milestone"><div class="dot dot-done"></div><span class="milestone-label done">Signed · cleanup + J&X Cleanouts engaged</span></div>
+      <div class="milestone"><div class="dot dot-pending"></div><span class="milestone-label">Saugus landfill permit — coming tomorrow 5/27</span></div>
+      <div class="milestone"><div class="dot dot-pending"></div><span class="milestone-label">Photos + list — mid-late June</span></div>
+      <div class="milestone"><div class="dot dot-pending"></div><span class="milestone-label">NH buyer: showings done 5/24 — regroup on next steps</span></div>
+    </div>
+    <div class="open-item open-item.yellow"><div class="open-item-label">Next</div>Call Rich tomorrow 5/27 — check landfill permit + NH market. Saugus listing pushed from 6/1 to mid-late June.</div>
   </div>
 
 </div>
@@ -220,60 +250,71 @@
   <div class="section-header">Active Client Pipeline</div>
   <div class="pipeline-card">
     <div class="pipeline-row">
-      <div><div class="pipeline-name">Kevin & Michael</div><div class="pipeline-detail">Under agreement — 515 Pleasant (sell) + 200 Market (buy)</div></div>
-      <div class="pipeline-status status-active">In Escrow</div>
-    </div>
-    <div class="pipeline-row">
-      <div><div class="pipeline-name">Donna Frongillo</div><div class="pipeline-detail">89 Blossom Chelsea (sell) + 207 Sherbert (buy) — appraisal issue</div></div>
+      <div><div class="pipeline-name">Kevin Tyrrell & Michael Fisher</div><div class="pipeline-detail">515 Pleasant (sell Jun 18) · 200 Market #410 (buy Jun 19) — portfolio lender pivot</div></div>
       <div class="pipeline-status status-hot">Urgent</div>
     </div>
     <div class="pipeline-row">
-      <div><div class="pipeline-name">Louanne Romaneck</div><div class="pipeline-detail">Pleasant View Farm Epping NH — awaiting P&S</div></div>
+      <div><div class="pipeline-name">Donna Frongillo</div><div class="pipeline-detail">89 Blossom Chelsea (sell) · 207 Sherbert (buy) — U&O + extensions pending · close Jun 17</div></div>
+      <div class="pipeline-status status-hot">Urgent</div>
+    </div>
+    <div class="pipeline-row">
+      <div><div class="pipeline-name">Louanne Romaneck</div><div class="pipeline-detail">Epping NH buy · P&S signed · Lewis Builders deadline May 29 · close ~Jun 30</div></div>
       <div class="pipeline-status status-active">Active</div>
     </div>
     <div class="pipeline-row">
-      <div><div class="pipeline-name">Jim Mailloux</div><div class="pipeline-detail">Houston + Stangus — targeting mid-late May listing</div></div>
+      <div><div class="pipeline-name">Jim Mailloux</div><div class="pipeline-detail">6 Houston + 12 Stangus Lynn · photos Sat 5/31 · list ~Jun 1</div></div>
       <div class="pipeline-status status-active">Active</div>
     </div>
     <div class="pipeline-row">
-      <div><div class="pipeline-name">Joe Depalo</div><div class="pipeline-detail">80 Foster St Lynn — follow up next week</div></div>
+      <div><div class="pipeline-name">Rich Zwicker</div><div class="pipeline-detail">45 Pearson Saugus · list mid-late Jun · NH buyer active</div></div>
       <div class="pipeline-status status-active">Active</div>
     </div>
     <div class="pipeline-row">
-      <div><div class="pipeline-name">Josh Armata</div><div class="pipeline-detail">176 Gore Rd Beverly — CMA sent, viewed property</div></div>
+      <div><div class="pipeline-name">Josh Armata</div><div class="pipeline-detail">Active buyer: 3bd/1750sqft/under $1M — Peabody/Wakefield/Stoneham/N. Reading/Lynnfield · seller nurture: 176 Gore Rd Revere</div></div>
       <div class="pipeline-status status-active">Active</div>
     </div>
     <div class="pipeline-row">
-      <div><div class="pipeline-name">Marcus Mitrano</div><div class="pipeline-detail">141 Washington Salem — rental, lease signed, Braeden deposit May 23</div></div>
-      <div class="pipeline-status status-active">Active</div>
+      <div><div class="pipeline-name">Joe DePalo</div><div class="pipeline-detail">80 Foster St U503 Peabody · signed · back in MA week of Jun 8</div></div>
+      <div class="pipeline-status status-pre">Pre-List</div>
+    </div>
+    <div class="pipeline-row">
+      <div><div class="pipeline-name">Randy Knowlton</div><div class="pipeline-detail">47 Howard St Revere · signed · call beginning of June</div></div>
+      <div class="pipeline-status status-pre">Pre-List</div>
+    </div>
+    <div class="pipeline-row">
+      <div><div class="pipeline-name">Marcus Mitrano</div><div class="pipeline-detail">141 Washington Salem — lease commission · CLOSED May 23</div></div>
+      <div class="pipeline-status status-done">Closed</div>
     </div>
   </div>
 </div>
 
-<!-- MONDAY TASKS -->
-<div class="section-header" style="margin-top:28px;">Monday Priority List</div>
+<!-- TODAY'S PRIORITIES -->
+<div class="section-header" style="margin-top:28px;">Today / This Week — Priorities</div>
 <div class="pipeline-card" style="background:#1a1d27; border-radius:12px; padding:18px;">
   <div class="pipeline-row">
-    <div><div class="pipeline-name">🔴 Kevin & Michael — Mortgage</div><div class="pipeline-detail">Best lender for warrantability + litigation situation. Brian (H1H2), Ed Gelman, John (Investor), David Johnson.</div></div>
+    <div><div class="pipeline-name">🔴 200 Market — Call Salem Five + Blue Door Mortgage</div><div class="pipeline-detail">Portfolio/non-warrantable lender calls. Get approval → then connect Kevin & Michael. Do NOT connect buyers to lenders without Marc's go-ahead.</div></div>
   </div>
   <div class="pipeline-row">
-    <div><div class="pipeline-name">🔴 Kevin & Michael — 6D Certificate</div><div class="pipeline-detail">Connect with Libby. May fees paid + prorate May 29-30.</div></div>
+    <div><div class="pipeline-name">🔴 515 Pleasant — Get Kristen's extension confirm</div><div class="pipeline-detail">Kevin + Michael OK on extension to Jun 18. Kristen (buyer agent) has not confirmed yet.</div></div>
   </div>
   <div class="pipeline-row">
-    <div><div class="pipeline-name">🟡 Donna — Appraisal resolution</div><div class="pipeline-detail">Follow up with attorneys and lenders on 89 Blossom.</div></div>
+    <div><div class="pipeline-name">🔴 Frongillo — Push Tim Sherman on U&O + extension</div><div class="pipeline-detail">U&O sent May 26. Tim Sherman must respond. Donna won't sign 207 Sherbert extension until she sees U&O.</div></div>
   </div>
   <div class="pipeline-row">
-    <div><div class="pipeline-name">🟡 ATTOM Data</div><div class="pipeline-detail">Call to upgrade from free trial to paid API key.</div></div>
+    <div><div class="pipeline-name">🟡 Romaneck — Lewis Builders commitment by May 29</div><div class="pipeline-detail">Confirm Alison Fitting (Partners Bank) sent commitment. Email Helen + Lewis Builders May 27 if no contact. Check Ali's secured message.</div></div>
   </div>
   <div class="pipeline-row">
-    <div><div class="pipeline-name">🟡 MLS Bridge API</div><div class="pipeline-detail">Confirm with Chris (broker) on data access extension.</div></div>
+    <div><div class="pipeline-name">🟡 Anne Muir — Call + text May 27</div><div class="pipeline-detail">No contact since May 16. Personal situation. Competing agent active. NH multi-parcel.</div></div>
+  </div>
+  <div class="pipeline-row">
+    <div><div class="pipeline-name">🟡 Jimmy Bennett — Multiple contractor quotes</div><div class="pipeline-detail">23 Lyman Beverly. Hot seller post-consult May 13. Follow up All City (Gerald Casaletto 978-535-3563) + TLC (978-223-3575).</div></div>
   </div>
   <div class="pipeline-row" style="border-bottom:none;">
-    <div><div class="pipeline-name">🟢 Joe Depalo follow up</div><div class="pipeline-detail">Check in on 80 Foster St Lynn — on market status.</div></div>
+    <div><div class="pipeline-name">🟢 Jim Mailloux — Schedule 12 Stangus photos</div><div class="pipeline-detail">Saturday May 31 afternoon. Book photographer. Jim confirmed on track.</div></div>
   </div>
 </div>
 
-<p class="updated">Dashboard v1.0 · Built by NSRE Sales Admin · Data current as of April 25, 2026 · Lead data module coming soon (pending ATTOM + MLS Bridge)</p>
+<p class="updated">Dashboard v2.0 · Rebuilt May 26, 2026 · NSRE Sales Admin · Data live from Google Sheets CRM</p>
 
 </body>
 </html>
